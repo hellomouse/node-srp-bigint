@@ -150,6 +150,8 @@ Module contents:
   * this accepts the B value from the server. M1 and K cannot be accessed until setB() has been called.
 * **`computeM1() -> M1`**
   * produce the M1 key-confirmation message. This should be sent to the server, which can check it to make sure the client really knew the correct password. setB must be called before computeM1.
+* **`checkM2()`**
+  * check the M2 verification value from the server which is used to ensure the server is authentic. If incorrect, this method will throw an error.
 * **`computeK() -> K`**
   * produce the shared key K. If the password and verifier matched, both client and server will get the same value for K. setB must be called before computeK.
 
@@ -159,8 +161,8 @@ Module contents:
   * produce the B value that will be sent to the client.
 * **`setA(A)`**
   * this accepts the A value from the client. checkM1 and computeK cannot be called until setA has been called.
-* **`checkM1(M1)`**
-  * this checks the client's M1 key-confirmation message. If the client's password matched the server's verifier, checkM1() will complete without error. If they do not  match, checkM1() will throw an error.
+* **`checkM1(M1) -> M2`**
+  * this checks the client's M1 key-confirmation message. If the client's password matched the server's verifier, checkM1() will complete without error. If they do not  match, checkM1() will throw an error. Will return the M2 verification value, which should be sent to the client.
 * **`computeK() -> K`**
   * produce the shared key K. setA must be called before computeK.
 
